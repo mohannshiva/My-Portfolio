@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohan Bejjipuram — Sales Operations Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #F0F4FF;
+      --surface:   #FFFFFF;
+      --border:    #E2E8F8;
+      --blue:      #2563EB;
+      --blue-lt:   #EEF3FF;
+      --violet:    #7C3AED;
+      --violet-lt: #F3EEFF;
+      --slate:     #0F172A;
+      --muted:     #64748B;
+      --light:     #94A3B8;
+      --tag-bg:    #EEF3FF;
+      --tag-txt:   #2563EB;
+      --radius:    14px;
+      --shadow:    0 2px 20px rgba(37,99,235,.07);
+      --shadow-lg: 0 8px 40px rgba(37,99,235,.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--slate);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      background: rgba(240,244,255,.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow); }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.05rem; letter-spacing: -.02em;
+      color: var(--slate); text-decoration: none;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .875rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color .2s;
+      position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--blue);
+      transition: width .25s ease;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--blue); color: #fff !important;
+      padding: .42rem 1.1rem; border-radius: 8px;
+      font-weight: 600 !important; font-size: .82rem !important;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: #1d4ed8 !important; transform: translateY(-1px); }
+
+    /* ─── HERO ─────────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 64px 5vw 0;
+      overflow: hidden;
+    }
+    #neural-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .78rem; font-weight: 500;
+      color: var(--blue); background: var(--blue-lt);
+      padding: .3rem .75rem; border-radius: 100px;
+      margin-bottom: 1.5rem; border: 1px solid rgba(37,99,235,.15);
+      letter-spacing: .04em;
+    }
+    .hero-eyebrow::before { content: '◉'; font-size: .6rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -.03em; color: var(--slate);
+      margin-bottom: .6rem;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 1.5rem;
+      min-height: 1.6em;
+    }
+    .hero-role .cursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--blue); margin-left: 2px;
+      animation: blink .75s step-end infinite; vertical-align: middle;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--muted); max-width: 560px;
+      line-height: 1.7; margin-bottom: 2.2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--blue); color: #fff;
+      padding: .75rem 1.6rem; border-radius: 10px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(37,99,235,.28);
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--surface); color: var(--slate);
+      padding: .75rem 1.6rem; border-radius: 10px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      border: 1.5px solid var(--border);
+      transition: border-color .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--slate);
+      letter-spacing: -.04em; line-height: 1;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label { font-size: .78rem; color: var(--light); font-weight: 500; letter-spacing: .02em; margin-top: .2rem; }
+    .hero-scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: var(--light); font-size: .72rem; letter-spacing: .08em;
+      text-transform: uppercase; animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--blue), transparent);
+    }
+
+    /* ─── LAYOUT ───────────────────────────────────────────────────────────── */
+    .section { padding: 6rem 5vw; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; letter-spacing: -.025em; color: var(--slate);
+      margin-bottom: 2.5rem;
+    }
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+      margin-bottom: 5rem;
+    }
+
+    /* ─── ABOUT ────────────────────────────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; font-size: .98rem; }
+    .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+    .highlight-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.2rem 1.4rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .highlight-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateX(4px); }
+    .highlight-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--blue-lt); display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .highlight-body h4 { font-family: 'Space Grotesk', sans-serif; font-size: .92rem; font-weight: 600; color: var(--slate); margin-bottom: .2rem; }
+    .highlight-body p { font-size: .83rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── SKILLS ───────────────────────────────────────────────────────────── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+    .skill-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem 1.6rem;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .skill-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .skill-card-header {
+      display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem;
+    }
+    .skill-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: var(--blue-lt); display: flex; align-items: center;
+      justify-content: center; font-size: 1rem;
+    }
+    .skill-card-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .9rem; font-weight: 600; color: var(--slate);
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; padding: .22rem .55rem;
+      border-radius: 5px; background: var(--tag-bg);
+      color: var(--tag-txt); font-weight: 500; white-space: nowrap;
+    }
+    .tag.violet { background: var(--violet-lt); color: var(--violet); }
+    .tag.slate { background: #F1F5F9; color: #475569; }
+
+    /* ─── EXPERIENCE ───────────────────────────────────────────────────────── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 0 2.5rem; position: relative;
+    }
+    .timeline-item + .timeline-item { margin-top: 2.5rem; }
+    .timeline-left { padding-top: .2rem; text-align: right; }
+    .timeline-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; color: var(--blue); font-weight: 500;
+      letter-spacing: .02em; display: block; white-space: nowrap;
+    }
+    .timeline-loc { font-size: .78rem; color: var(--light); margin-top: .2rem; }
+    .timeline-right {
+      position: relative; padding-left: 1.8rem;
+      border-left: 2px solid var(--border);
+    }
+    .timeline-right::before {
+      content: ''; position: absolute; left: -6px; top: .5rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--blue); border: 2px solid var(--surface);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+    }
+    .exp-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem 1.6rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .exp-card:hover { border-color: var(--blue); box-shadow: var(--shadow); }
+    .exp-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--slate); margin-bottom: .1rem;
+    }
+    .exp-company { font-size: .85rem; color: var(--blue); font-weight: 600; margin-bottom: 1rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .exp-bullets li {
+      font-size: .875rem; color: var(--muted); line-height: 1.6;
+      padding-left: 1rem; position: relative;
+    }
+    .exp-bullets li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--blue); font-size: .75rem;
+    }
+
+    /* ─── IMPACT NUMBERS ───────────────────────────────────────────────────── */
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .impact-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem 1.6rem;
+      text-align: center;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .impact-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .impact-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 700; color: var(--blue);
+      letter-spacing: -.04em; line-height: 1; margin-bottom: .3rem;
+    }
+    .impact-label { font-size: .8rem; color: var(--muted); line-height: 1.4; }
+
+    /* ─── EDUCATION ────────────────────────────────────────────────────────── */
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    .edu-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem 1.6rem;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .edu-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .edu-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .72rem; font-weight: 600; color: var(--blue);
+      background: var(--blue-lt); padding: .22rem .6rem; border-radius: 5px;
+      margin-bottom: .8rem; letter-spacing: .03em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .edu-degree {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--slate); margin-bottom: .25rem;
+    }
+    .edu-school { font-size: .875rem; color: var(--blue); font-weight: 600; margin-bottom: .25rem; }
+    .edu-detail { font-size: .8rem; color: var(--muted); margin-bottom: .15rem; }
+
+    /* ─── CONTACT ──────────────────────────────────────────────────────────── */
+    .contact-section {
+      background: var(--slate);
+      padding: 5rem 5vw;
+    }
+    .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .contact-inner .section-label { color: rgba(255,255,255,.5); }
+    .contact-inner .section-title { color: #fff; margin-bottom: 1rem; }
+    .contact-inner p { color: rgba(255,255,255,.6); margin-bottom: 2.5rem; font-size: .98rem; line-height: 1.7; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: .6rem;
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.12); border-radius: 10px;
+      padding: .75rem 1.4rem; text-decoration: none; font-size: .88rem; font-weight: 500;
+      transition: background .2s, border-color .2s, transform .15s;
+    }
+    .contact-link:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.3); transform: translateY(-2px); }
+    .contact-link.primary { background: var(--blue); border-color: var(--blue); }
+    .contact-link.primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--slate); border-top: 1px solid rgba(255,255,255,.07);
+      text-align: center; padding: 1.5rem 5vw;
+      color: rgba(255,255,255,.3); font-size: .78rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── REVEAL ANIMATIONS ────────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: .5rem; }
+      .timeline-left { text-align: left; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <a class="nav-logo" href="#"><span>MB</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <canvas id="neural-canvas"></canvas>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Open to new opportunities</div>
+      <h1>Mohan<br/>Bejjipuram<br/><span class="gradient">Sales Operations</span></h1>
+      <div class="hero-role" id="typewriter"><span id="tw-text"></span><span class="cursor"></span></div>
+      <p class="hero-desc">
+        Driving revenue operations, process efficiency, and KPI performance for large-scale sales teams in EdTech and BPO. MS in Computer Science · 5+ Years Experience · United States.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:mohannshiva@gmail.com" class="btn-primary">
+          ✉ Get in Touch
+        </a>
+        <a href="#experience" class="btn-secondary">
+          ↓ View Experience
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">5<span>+</span></span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">870<span>+</span></span>
+          <span class="stat-label">Team Members Managed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2<span>×</span></span>
+          <span class="stat-label">Sectors: EdTech & BPO</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">1<span>×</span></span>
+          <span class="stat-label">MS Computer Science</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      scroll
+    </div>
+  </section>
+
+  <!-- ── ABOUT ────────────────────────────────────────────────────────────── -->
+  <div class="section" id="about">
+    <div class="section-label">01 — About</div>
+    <div class="section-title">Who I Am</div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          I'm a Sales Operations Manager and Business Analyst with 5+ years of experience building and optimizing high-performance sales organizations across EdTech and BPO sectors. I specialize in turning complex operational data into scalable processes and clear decisions.
+        </p>
+        <p>
+          At Think and Learn (BYJU'S), I managed workflow optimization across a 870+ member sales organization — 12 Senior Managers, 60 BDMs, and 800 BDAs — conducting process mapping, gap analysis, and RCA to eliminate inefficiencies and drive measurable revenue outcomes.
+        </p>
+        <p>
+          I hold an MS in Computer Science from Pace University and bring a strong analytical foundation to every ops challenge. I'm currently based in the United States and actively seeking roles in sales operations, revenue ops, or business analysis.
+        </p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-card">
+          <div class="highlight-icon">📊</div>
+          <div class="highlight-body">
+            <h4>KPI Reporting & Forecasting</h4>
+            <p>Building daily and weekly performance dashboards that give leadership the signal-to-noise they need to act.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🔍</div>
+          <div class="highlight-body">
+            <h4>Process Mapping & RCA</h4>
+            <p>Diagnosing workflow bottlenecks through gap analysis and root cause analysis to implement lasting fixes.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🤝</div>
+          <div class="highlight-body">
+            <h4>Cross-Functional Collaboration</h4>
+            <p>Partnering with AGMs, Senior Managers, and BDMs to align sales execution with strategic planning goals.</p>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">📈</div>
+          <div class="highlight-body">
+            <h4>Revenue & Pipeline Management</h4>
+            <p>End-to-end CRM ownership, pipeline health monitoring, and cancellation/return reduction through audit-driven controls.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ── SKILLS ───────────────────────────────────────────────────────────── -->
+  <div class="section" id="skills">
+    <div class="section-label">02 — Skills</div>
+    <div class="section-title">Operational Toolkit</div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">⚙️</div>
+          <h3>Sales & Operations</h3>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Sales Operations</span>
+          <span class="tag">Pipeline Management</span>
+          <span class="tag">CRM Management</span>
+          <span class="tag">Revenue Reporting</span>
+          <span class="tag">Capacity Planning</span>
+          <span class="tag">Forecasting</span>
+          <span class="tag">Workflow Optimization</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">🔎</div>
+          <h3>Analysis & Strategy</h3>
+        </div>
+        <div class="tag-list">
+          <span class="tag slate">Gap Analysis</span>
+          <span class="tag slate">Root Cause Analysis</span>
+          <span class="tag slate">Process Mapping</span>
+          <span class="tag slate">KPI Reporting</span>
+          <span class="tag slate">Requirements Gathering</span>
+          <span class="tag slate">Cohort Analysis</span>
+          <span class="tag slate">Strategic Planning</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">🛠️</div>
+          <h3>Tools & Platforms</h3>
+        </div>
+        <div class="tag-list">
+          <span class="tag violet">Advanced Excel</span>
+          <span class="tag violet">Google Data Studio</span>
+          <span class="tag violet">Power BI</span>
+          <span class="tag violet">Data Dashboards</span>
+          <span class="tag violet">Microsoft Office Suite</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">👥</div>
+          <h3>Leadership & Soft Skills</h3>
+        </div>
+        <div class="tag-list">
+          <span class="tag slate">Team Leadership</span>
+          <span class="tag slate">Stakeholder Management</span>
+          <span class="tag slate">Sales Training</span>
+          <span class="tag slate">Performance Coaching</span>
+          <span class="tag slate">Cross-functional Collaboration</span>
+          <span class="tag slate">Communication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ── EXPERIENCE ───────────────────────────────────────────────────────── -->
+  <div class="section" id="experience">
+    <div class="section-label">03 — Experience</div>
+    <div class="section-title">Where I've Worked</div>
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <span class="timeline-date">Dec 2020 – Aug 2022</span>
+          <div class="timeline-loc">India</div>
+        </div>
+        <div class="timeline-right">
+          <div class="exp-card">
+            <div class="exp-role">Sales Operations Manager</div>
+            <div class="exp-company">Think and Learn Pvt Ltd (BYJU'S)</div>
+            <ul class="exp-bullets">
+              <li>Collaborated with AGMs to map, analyze, and optimize end-to-end sales workflow across an 870+ member organization (12 Senior Managers, 60 BDMs, 800 BDAs), improving coordination and throughput.</li>
+              <li>Conducted process mapping, gap analysis, and root cause analysis (RCA) to pinpoint workflow inefficiencies and performance gaps, enabling targeted corrective interventions.</li>
+              <li>Designed and implemented scalable, structured sales processes that enhanced team productivity, reduced redundancies, and standardized performance benchmarks across business units.</li>
+              <li>Maintained daily and weekly KPI performance reports; led one-on-one review sessions with BDMs and Senior Managers to drive accountability and continuous improvement.</li>
+              <li>Reduced returns, cancellations, and refunds by conducting sprint-level order audits and implementing corrective process controls.</li>
+              <li>Reported and analyzed revenue and revenue-related metrics to support senior management decision-making and strategic planning.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <span class="timeline-date">Nov 2019 – Dec 2020</span>
+          <div class="timeline-loc">Hyderabad, India</div>
+        </div>
+        <div class="timeline-right">
+          <div class="exp-card">
+            <div class="exp-role">Business Development Manager</div>
+            <div class="exp-company">Vedantu Innovations</div>
+            <ul class="exp-bullets">
+              <li>Led a team of 15 BDAs, driving achievement of daily and weekly revenue targets through structured coaching, pipeline reviews, and performance-based goal setting.</li>
+              <li>Managed the end-to-end sales pipeline and post-sales customer relationships, generating referrals and proactively reducing cancellations and return rates.</li>
+              <li>Developed growth strategies with measurable outcomes; maintained in-depth product knowledge to enable effective team guidance.</li>
+              <li>Maintained weekly performance dashboards to surface improvement areas and conducted structured sales training sessions to uplift team capability.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <span class="timeline-date">Aug 2018 – Nov 2019</span>
+          <div class="timeline-loc">Hyderabad, India</div>
+        </div>
+        <div class="timeline-right">
+          <div class="exp-card">
+            <div class="exp-role">Business Development Associate</div>
+            <div class="exp-company">Vedantu Innovations</div>
+            <ul class="exp-bullets">
+              <li>Identified student and parent needs through consultative EdTech selling, delivering tailored solutions using visual learning demonstrations.</li>
+              <li>Consistently achieved weekly and monthly revenue targets by maintaining a strong lead pipeline and executing follow-up strategies that converted prospects to sales closures.</li>
+              <li>Managed cold calling, home demo scheduling, and long-term parent relationship management to maximize conversion and minimize churn.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <span class="timeline-date">Sep 2017 – Jul 2018</span>
+          <div class="timeline-loc">Vizag, India</div>
+        </div>
+        <div class="timeline-right">
+          <div class="exp-card">
+            <div class="exp-role">Operations Representative — WFM & Customer Support</div>
+            <div class="exp-company">Concentrix Daksh Services</div>
+            <ul class="exp-bullets">
+              <li>Forecasted contact center volume using historical data and predictive analysis, enabling accurate staff scheduling and capacity planning for SLA compliance.</li>
+              <li>Managed real-time intraday operations, addressing unexpected spikes in contact volume and workforce absenteeism to maintain service level agreements.</li>
+              <li>Conducted KYC verification for new customers, ensuring compliance with regulatory and operational standards.</li>
+              <li>Monitored daily, weekly, and monthly process updates; educated agents on policy terms to reduce post-sale disputes and improve customer satisfaction.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ── IMPACT ────────────────────────────────────────────────────────────── -->
+  <div class="section" id="impact">
+    <div class="section-label">04 — Impact</div>
+    <div class="section-title">Numbers That Matter</div>
+    <div class="impact-grid reveal">
+      <div class="impact-card">
+        <div class="impact-num">870<span style="font-size:1.2rem;color:var(--violet)">+</span></div>
+        <div class="impact-label">Sales org members across managed workflow at BYJU'S</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">15<span style="font-size:1.2rem;color:var(--violet)">×</span></div>
+        <div class="impact-label">BDA team led to daily & weekly revenue targets at Vedantu</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">↓<span style="font-size:1.2rem">RCR</span></div>
+        <div class="impact-label">Returns, cancellations & refunds reduced via sprint-level audits</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">5<span style="font-size:1.2rem;color:var(--violet)">+</span></div>
+        <div class="impact-label">Years of KPI reporting, forecasting & capacity planning</div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ── EDUCATION ────────────────────────────────────────────────────────── -->
+  <div class="section" id="education">
+    <div class="section-label">05 — Education</div>
+    <div class="section-title">Academic Background</div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-badge">🎓 Master's</div>
+        <div class="edu-degree">MS in Computer Science</div>
+        <div class="edu-school">Campbellsville University</div>
+        <div class="edu-detail">Kentucky, USA · 2022–2024</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">🎓 Bachelor's</div>
+        <div class="edu-degree">Bachelor of Technology (BTech)</div>
+        <div class="edu-school">RVR & J.College of Engineering</div>
+        <div class="edu-detail">Andhra Pradesh, India · 2013–2017</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTACT ───────────────────────────────────────────────────────────── -->
+  <div class="contact-section" id="contact">
+    <div class="contact-inner reveal">
+      <div class="section-label">06 — Contact</div>
+      <div class="section-title">Let's Connect</div>
+      <p>
+        I'm actively looking for Sales Operations, Revenue Operations, or Business Analyst roles — full-time. Whether you're scaling a sales team, building ops infrastructure, or need someone to own KPI reporting end-to-end, let's talk.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:mohannshiva@gmail.com" class="contact-link primary">
+          ✉ mohannshiva@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/mohan-bejjipuram" target="_blank" rel="noopener" class="contact-link">
+          in LinkedIn
+        </a>
+        <a href="tel:8136190002" class="contact-link">
+          📞 (813) 619-0002
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Built for Mohan Bejjipuram · United States · <span id="yr"></span>
+  </footer>
+
+  <script>
+    /* ── NAV SCROLL ─────────────────────────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    /* ── NEURAL CANVAS ──────────────────────────────────────────────────────── */
+    (function () {
+      const canvas = document.getElementById('neural-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, nodes, mouse = { x: -9999, y: -9999 };
+      const NODE_COUNT = 60, CONNECT_DIST = 130, MOUSE_DIST = 160;
+
+      function resize() {
+        W = canvas.width = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+        initNodes();
+      }
+
+      function initNodes() {
+        nodes = Array.from({ length: NODE_COUNT }, () => ({
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+          r: 2 + Math.random() * 2
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < CONNECT_DIST) {
+              const alpha = (1 - d / CONNECT_DIST) * 0.2;
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(37,99,235,${alpha})`;
+              ctx.lineWidth = 1;
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+          const mdx = nodes[i].x - mouse.x, mdy = nodes[i].y - mouse.y;
+          const md = Math.sqrt(mdx * mdx + mdy * mdy);
+          if (md < MOUSE_DIST) {
+            const alpha = (1 - md / MOUSE_DIST) * 0.5;
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(124,58,237,${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+        nodes.forEach(n => {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(37,99,235,0.25)';
+          ctx.fill();
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        });
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      canvas.parentElement.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.parentElement.addEventListener('mouseleave', () => {
+        mouse.x = -9999; mouse.y = -9999;
+      });
+
+      resize();
+      draw();
+    })();
+
+    /* ── TYPEWRITER ──────────────────────────────────────────────────────────── */
+    (function () {
+      const roles = [
+        'Sales Operations Manager',
+        'Business Analyst',
+        'Revenue Operations Lead',
+        'KPI & Forecasting Expert',
+        'Sales Process Architect',
+      ];
+      const el = document.getElementById('tw-text');
+      let ri = 0, ci = 0, deleting = false;
+
+      function tick() {
+        const word = roles[ri];
+        if (!deleting) {
+          el.textContent = word.slice(0, ++ci);
+          if (ci === word.length) { deleting = true; setTimeout(tick, 1800); return; }
+        } else {
+          el.textContent = word.slice(0, --ci);
+          if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+        }
+        setTimeout(tick, deleting ? 40 : 80);
+      }
+      setTimeout(tick, 600);
+    })();
+
+    /* ── REVEAL ON SCROLL ───────────────────────────────────────────────────── */
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => io.observe(el));
+
+    /* ── FOOTER YEAR ─────────────────────────────────────────────────────────── */
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
